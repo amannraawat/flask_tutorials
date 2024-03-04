@@ -32,11 +32,12 @@
           <!-- To make this form functional, sign up at-->
           <!-- https://startbootstrap.com/solution/contact-forms-->
           <!-- to get an API token!-->
-          <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+          <form id="contactForm" action="/contact" method='post' data-sb-form-api-token="e2576777-cdc2-417f-bc18-11f9ff2bdacf">
             <div class="form-floating">
               <input
                 class="form-control"
                 id="name"
+                name="name"
                 type="text"
                 placeholder="Enter your name..."
                 data-sb-validations="required"
@@ -50,6 +51,7 @@
               <input
                 class="form-control"
                 id="email"
+                name="email"
                 type="email"
                 placeholder="Enter your email..."
                 data-sb-validations="required,email"
@@ -66,6 +68,7 @@
               <input
                 class="form-control"
                 id="phone"
+                name="phone"
                 type="tel"
                 placeholder="Enter your phone number..."
                 data-sb-validations="required"
@@ -79,6 +82,7 @@
               <textarea
                 class="form-control"
                 id="message"
+                name="message"
                 placeholder="Enter your message here..."
                 style="height: 12rem"
                 data-sb-validations="required"
@@ -114,7 +118,6 @@
             </div>
             <!-- Submit Button-->
             <button
-              class="btn btn-primary text-uppercase disabled"
               id="submitButton"
               type="submit"
             >
@@ -127,3 +130,4 @@
   </div>
 </main>
 {% endblock %}
+<!-- class="btn btn-primary text-uppercase" -->
