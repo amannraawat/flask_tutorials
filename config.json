@@ -1,0 +1,12 @@
+{
+    "params":
+    {
+        "local_server":"True",
+        "local_uri":"mysql://root:@localhost/thedailyblog",
+        "prod_uri":"mysql://root:@localhost/thedailyblog",
+        "fb_url":"http://facebook.com/thedailyblog",
+        "tw_url":"http://twitter.com/thedailyblog",
+        "git_url":"http://github.com/thedailyblog",
+        "app_name":"Acha Sa Naam"
+    }
+}
