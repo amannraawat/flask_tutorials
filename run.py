@@ -33,6 +33,15 @@ class Contacts(db.Model):
     message = db.Column(db.String(100), nullable=False)
     date = db.Column(db.String(10), nullable=True)
     
+class Posts(db.Model):
+    sno = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(20), nullable=False)
+    content = db.Column(db.String(150), nullable=False)
+    posted_by = db.Column(db.String(20), nullable=False)
+    posted_on = db.Column(db.String(10), nullable=True)
+    slug = db.Column(db.String(20), nullable=False)
+    image_name = db.Column(db.String(10), nullable=True)
+    
     
 @app.route("/")
 def home():
@@ -40,7 +49,13 @@ def home():
 
 @app.route("/about")
 def about():
-    return render_template('about.html')
+    return render_template('about.html', params=params)
+
+@app.route("/post/<string:post_slug>", methods=['GET'])
+def post(post_slug):
+    post = Posts.query.filter_by(slug=post_slug).first()
+    return render_template('post.html', params=params, post=post)
+    
 
 @app.route("/contact", methods =['GET', 'POST'])
 def contact():
@@ -60,9 +75,9 @@ def contact():
                            )        
     return render_template('contact.html', params=params)
 
-@app.route("/post")
-def post():
-    return render_template('post.html', params=params)
+# @app.route("/post")
+# def post():
+#     return render_template('post.html', params=params)
 
 if __name__ == '__main__':
     app.run(debug=True)
