@@ -10,6 +10,7 @@
         "app_name":"The Daily Blog",
         "gmail_user":"amannraawat@gmail.com",
         "gmail_password":"hpjo maok xmbi qykf",
-        "about_text":"i love programming."
+        "about_text":"i love programming.",
+        "no_of_posts":5
     }
 }

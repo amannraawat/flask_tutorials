@@ -36,6 +36,7 @@ class Contacts(db.Model):
 class Posts(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(20), nullable=False)
+    tagline = db.Column(db.String(20), nullable=False)
     content = db.Column(db.String(150), nullable=False)
     posted_by = db.Column(db.String(20), nullable=False)
     posted_on = db.Column(db.String(10), nullable=True)
@@ -45,7 +46,8 @@ class Posts(db.Model):
     
 @app.route("/")
 def home():
-    return render_template('index.html', params=params)
+    posts = Posts.query.filter_by().all()[0:params['no_of_posts']]
+    return render_template('index.html', params=params, posts=posts)
 
 @app.route("/about")
 def about():
