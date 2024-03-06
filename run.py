@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import json
@@ -9,6 +9,7 @@ with open('config.json', 'r') as file:
     
 local_server=True
 app = Flask(__name__)
+app.secret_key = 'super secret key'
 app.config.update(
     MAIL_SERVER='smtp.gmail.com',
     MAIL_PORT='465',
@@ -54,12 +55,20 @@ def about():
     return render_template('about.html', params=params)
 
 @app.route("/dashboard", methods=['GET', 'POST'])
-def dashboard():
-    if request.method == 'POST':
-        pass
-        #go to the admin panel
-    else:
+def admin_login():
+    if ('user' in session and session['user']==params['admin_username']):
         return render_template('dashboard.html', params=params)
+    
+    
+    if request.method == 'POST':
+        username=request.form.get('uname')
+        userpass=request.form.get('pass')
+        if (username ==params['admin_username'] and userpass == params['admin_password']):
+            session['user'] = username
+            return render_template('dashboard.html', params=params)
+        
+    else:
+        return render_template('login.html', params=params)
 
 @app.route("/post/<string:post_slug>", methods=['GET'])
 def post(post_slug):
