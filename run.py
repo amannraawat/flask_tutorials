@@ -53,6 +53,14 @@ def home():
 def about():
     return render_template('about.html', params=params)
 
+@app.route("/dashboard", methods=['GET', 'POST'])
+def dashboard():
+    if request.method == 'POST':
+        pass
+        #go to the admin panel
+    else:
+        return render_template('dashboard.html', params=params)
+
 @app.route("/post/<string:post_slug>", methods=['GET'])
 def post(post_slug):
     post = Posts.query.filter_by(slug=post_slug).first()
