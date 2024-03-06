@@ -71,6 +71,26 @@ def admin_login():
         
     else:
         return render_template('login.html', params=params)
+    
+@app.route("/edit/<string:sno>", methods=['GET', 'POST'])
+def edit(sno):
+    if ('user' in session and session['user']==params['admin_username']):
+        if request.method=='POST':
+            title = request.form.get('title')
+            tline = request.form.get('tline')
+            slug = request.form.get('slug')
+            content = request.form.get('content')
+            img_file = request.form.get('img_file')
+            posted_by = request.form.get('posted_by')
+            posted_on = datetime.now()
+           
+            if sno=='0':
+                post = Posts(title=title, tagline=tline, slug=slug, content=content, image_name=img_file, posted_by=posted_by, posted_on = posted_on)
+                db.session.add(post)
+                db.session.commit()
+        return render_template('edit.html', params=params, sno=sno)
+        
+    
 
 @app.route("/post/<string:post_slug>", methods=['GET'])
 def post(post_slug):
@@ -96,9 +116,7 @@ def contact():
                            )        
     return render_template('contact.html', params=params)
 
-# @app.route("/post")
-# def post():
-#     return render_template('post.html', params=params)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
