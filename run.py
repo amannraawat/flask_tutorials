@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import json
@@ -80,15 +80,29 @@ def edit(sno):
             tline = request.form.get('tline')
             slug = request.form.get('slug')
             content = request.form.get('content')
-            img_file = request.form.get('img_file')
             posted_by = request.form.get('posted_by')
             posted_on = datetime.now()
+            img_file = request.form.get('img_file')
            
             if sno=='0':
-                post = Posts(title=title, tagline=tline, slug=slug, content=content, image_name=img_file, posted_by=posted_by, posted_on = posted_on)
+                post = Posts(title=title, tagline=tline, slug=slug, content=content, posted_by=posted_by, posted_on = posted_on, image_name=img_file)
                 db.session.add(post)
                 db.session.commit()
-        return render_template('edit.html', params=params, sno=sno)
+            else:
+                post = Posts.query.filter_by(sno=sno).first()
+                post.title = title
+                post.tagline = tline
+                post.slug = slug
+                post.content = content
+                post.posted_by = posted_by
+                post.posted_on = posted_on
+                post.image_name = img_file
+                
+                db.session.commit()
+                return redirect('/edit/' + sno)
+        
+        post = Posts.query.filter_by(sno=sno).first()
+        return render_template('edit.html', params=params, post=post)
         
     
 

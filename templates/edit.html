@@ -19,13 +19,13 @@
 <div class="container px-4 px-lg-5">
   <div class="row gx-4 gx-lg-5 justify-content-center">
     <div class="col-md-10 col-lg-8 col-xl-7">
+      <h1>Basic Actions</h1>
+      <a href="/dashboard"><button class="btn btn-primary">Dashboard Home</button></a>
+      <a href="/logout"><button class="btn btn-primary">Logout</button></a>
+      <hr>
       <h1>Add/Edit Post</h1>
 
-      <form
-        action="/edit/{{sno}}"
-        method="post"
-        data-sb-form-api-token="e2576777-cdc2-417f-bc18-11f9ff2bdacf"
-      >
+      <form action="/edit/{{post.sno}}" method="post">
         <div class="form-floating">
           <input
             class="form-control"
@@ -33,7 +33,7 @@
             name="title"
             type="text"
             placeholder="Title"
-            data-sb-validations="required"
+            value="{{post.title}}"
           />
           <label for="name">Title</label>
         </div>
@@ -44,7 +44,7 @@
             name="tline"
             type="text"
             placeholder="Tagline"
-            data-sb-validations="required,email"
+            value="{{post.tagline}}"
           />
           <label for="tline">TagLine</label>
         </div>
@@ -55,7 +55,7 @@
             name="slug"
             type="text"
             placeholder="Slug"
-            data-sb-validations="required"
+            value="{{post.slug}}"
           />
           <label for="slug">Slug</label>
         </div>
@@ -63,34 +63,33 @@
           <textarea
             class="form-control"
             id="content"
+            rows="10"
             name="content"
             placeholder="Content"
-            style="height: 12rem"
-            data-sb-validations="required"
-          ></textarea>
+          >{{post.content}}</textarea>
           <label for="content">Content</label>
         </div>
         <div class="form-floating">
-            <input
-              class="form-control"
-              id="img_file"
-              name="img_file"
-              placeholder="Image File"
-              data-sb-validations="required"
-            >
-            <label for="img_file">Image File</label>
-          </div>
-          <div class="form-floating">
-            <input
-              class="form-control"
-              id="posted_by"
-              name="posted_by"
-              type="text"
-              placeholder="Posted By"
-              data-sb-validations="required"
-            />
-            <label for="posted_by">Posted By</label>
-          </div>
+          <input
+            class="form-control"
+            id="posted_by"
+            name="posted_by"
+            type="text"
+            placeholder="Posted By"
+            value="{{post.posted_by}}"
+          />
+          <label for="posted_by">Posted By</label>
+        </div>
+        <div class="form-floating">
+          <input
+            class="form-control"
+            id="img_file"
+            name="img_file"
+            placeholder="Image File"
+            value="{{post.image_name}}"
+          />
+          <label for="img_file">Image File</label>
+        </div>
         <br />
 
         <div class="d-none" id="submitErrorMessage">
