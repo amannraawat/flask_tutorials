@@ -3,13 +3,17 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import json
 from flask_mail import Mail
+import os
+from werkzeug.utils import secure_filename
 
 with open('config.json', 'r') as file:
     params = json.load(file)['params']
     
 local_server=True
-app = Flask(__name__)
+app = Flask(__name__, instance_path='C:/Users/hp/Desktop/flask_tut/instance/')
 app.secret_key = 'super secret key'
+# app.config['UPLOAD_FOLDER'] = params['uploader_location']
+
 app.config.update(
     MAIL_SERVER='smtp.gmail.com',
     MAIL_PORT='465',
@@ -110,7 +114,15 @@ def edit(sno):
 def post(post_slug):
     post = Posts.query.filter_by(slug=post_slug).first()
     return render_template('post.html', params=params, post=post)
-    
+
+@app.route('/uploader', methods=['GET', 'POST'])
+def uploader():
+    if ('user' in session and session['user'] == params['admin_username']):
+        if request.method=='POST':
+            fil = request.files['file1']
+            os.makedirs(os.path.join(app.instance_path, 'file1'), exist_ok=True)
+            fil.save(os.path.join(app.instance_path,'file1', secure_filename(fil.filename) ))
+            return "Upload Successfully"    
 
 @app.route("/contact", methods =['GET', 'POST'])
 def contact():
