@@ -123,6 +123,11 @@ def uploader():
             os.makedirs(os.path.join(app.instance_path, 'file1'), exist_ok=True)
             fil.save(os.path.join(app.instance_path,'file1', secure_filename(fil.filename) ))
             return "Upload Successfully"    
+        
+@app.route('/logout')
+def logout():
+    session.pop('user')
+    return redirect('/dashboard')
 
 @app.route("/contact", methods =['GET', 'POST'])
 def contact():
