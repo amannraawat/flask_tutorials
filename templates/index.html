@@ -23,26 +23,26 @@
       {% for post in posts %}
       <div class="post-preview">
         <a href="/post/{{post.slug}}">
-        <h2 class="post-title">
-          {{ post.title }}
-          </h2>
-          <h3 class="post-subtitle">
-            {{post.tagline}}
-          </h3>
+          <h2 class="post-title">{{ post.title }}</h2>
+          <h3 class="post-subtitle">{{post.tagline}}</h3>
         </a>
         <p class="post-meta">
-          Posted by 
+          Posted by
           <a href="#!">{{post.posted_by}}</a>
           on {post.posted_on}
         </p>
       </div>
-      {{post.content[0:50]}}.....
-      {% endfor %}
+      {{post.content[0:50]}}..... {% endfor %}
       <!-- Divider-->
       <hr class="my-4" />
       <!-- Pager-->
       <div class="d-flex justify-content-end mb-4">
-        <a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a>
+        <a class="btn btn-primary text-uppercase" href="{{prev}}"
+          >&larr; Previous Posts
+        </a>
+        <a class="btn btn-primary text-uppercase" href="{{next}}"
+          >Older Posts &rarr;</a
+        >
       </div>
     </div>
   </div>
