@@ -174,8 +174,3 @@ def contact():
                           body=message+"\n"+phone
                            )        
     return render_template('contact.html', params=params)
-
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
